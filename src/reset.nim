@@ -3,7 +3,7 @@
 {.compile: "std.c".}
 {.compile: "linker_symbols.c".}
 
-import cm4f/scb
+import cm4f/[core, scb]
 import debug_rtt
 
 proc NimMain() {.importc: "NimMain".}
@@ -34,3 +34,7 @@ proc Reset_Handler() {.exportc, noconv.} =
   zeroBssSection()
   rttInit()
   NimMain() # this will call the nim module given to the nim compiler
+
+proc default_Handler() {.exportc, noconv.} =
+  debugRTTprintf(0, "default_Handler: ISR Number: %d\n", IPSR.ISR_NUMBER)
+
