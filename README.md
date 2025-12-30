@@ -1,6 +1,6 @@
 # Nim on nRF52
 
-Bare metal Nim on a Nordic nRF52 microcontroller
+A Nim bare metal starting point for Nordic nRF52 devices
 
 ## Requirements
 
