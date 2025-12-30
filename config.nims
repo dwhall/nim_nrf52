@@ -1,16 +1,13 @@
 mode = ScriptMode.Verbose
 
 const
-  target = "c2lora"
+  target = "main"
   binDir = "build"
   srcDir = "src"
 
 # Compiler options
 switch("arm.any.gcc.options.always", "-w -fmax-errors=4 -march=armv7e-m -mtune=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -ffunction-sections -fdata-sections")
-switch("arm.any.gcc.options.linker", "-w -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T linkers/nrf52.ld -o build/c2lora.elf -specs=nano.specs -specs=nosys.specs -Wl,--gc-sections")
-
-# Embedded Artistry Libc
-# switch("passL","deps/libc/libc.a")
+switch("arm.any.gcc.options.linker", "-w -march=armv7e-m -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T linkers/nrf52.ld -o build/main.elf -specs=nano.specs -specs=nosys.specs -Wl,--gc-sections")
 
 # Nim cache directory
 switch("nimcache", "build/nimcache")
@@ -24,7 +21,7 @@ switch("os", "any")
 switch("cpu", "arm")
 switch("cc", "gcc")
 switch("mm", "arc")
-switch("panics", "on")  # requires local panicoverride.nim
+switch("panics", "on")  # requires local file: panicoverride.nim
 switch("threads", "off")
 switch("profiler", "off")
 switch("checks", "off")
@@ -52,7 +49,7 @@ else:
   switch("debuginfo", "off")
   switch("lineDir", "off")
   switch("passL", "-Wl,--strip-debug")
-# switch("passL", "-Wl,-Map=build/c2lora.map")
+  switch("passL", "-Wl,-Map=build/main.map")
 
 # Preferences
 switch("styleCheck", "usages")  # prohibit flexible capitalization of identifiers

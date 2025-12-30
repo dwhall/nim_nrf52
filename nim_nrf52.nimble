@@ -1,8 +1,8 @@
 version       = "0.1.0"
 author        = "!!Dean"
-description   = "Codec 2 over LoRa"
+description   = "Nim on nRF52"
 license       = "MIT"
 srcDir        = "src"
 
 # Dependencies
-requires "nim >= 2.0"
+requires "nim >= 2.2"

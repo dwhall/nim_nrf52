@@ -1,10 +1,6 @@
-# c2lora
+# Nim on nRF52
 
-Codec 2 over LoRa, written in Nim.
-
-## Project Details
-
-[See the wiki](https://github.com/dwhall/c2lora/wiki) for more documentation.
+Bare metal Nim on a Nordic nRF52 microcontroller
 
 ## Requirements
 
@@ -17,8 +13,7 @@ Codec 2 over LoRa, written in Nim.
 
 _BE SURE TO INIT AND UPDATE SUBMODULES_
 
+`git submodule update --init --recursive`
+
 * Build: `nim build`
 * Load: `nim load`
-* Tests: `nimble test` (none at the moment)
-
-## Releases
