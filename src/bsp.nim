@@ -11,7 +11,7 @@ proc initSysLed*() =
   P1.DIRSET.PIN3(1'u32)
 
 proc initUserLed*() =
-  P1.DIRSET.PIN3(1'u32)
+  P1.DIRSET.PIN4(1'u32)
 
 proc setSysLed*(on: bool) =
   if on:
@@ -21,6 +21,6 @@ proc setSysLed*(on: bool) =
 
 proc setUserLed*(on: bool) =
   if on:
-    P1.OUTSET.PIN3(1'u32)
+    P1.OUTSET.PIN4(1'u32)
   else:
-    P1.OUTCLR.PIN3(1'u32)
+    P1.OUTCLR.PIN4(1'u32)
