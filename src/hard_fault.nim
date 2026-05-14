@@ -1,4 +1,4 @@
-import cm4f/core
+import armv7m/core
 import bsp
 
 # The fault_Handler overrides the weak symbol in the vector table.
@@ -24,10 +24,10 @@ proc fault_Handler() {.exportc, noconv, noreturn.} =
   # Fault handler exceptions are higher priority than most interrupts
   # which prevents most interrupts from interrupting this handler;
   # so we use blocking waits to flash the LED
-  let blinkCount = IPSR.ISR_NUMBER
+  let blinkCount = IPSR.read().EXN_NUMBER.uint32
   initSysLed()
   while true:
-    for i in 0 ..< blinkCount:
+    for i in 0'u32 ..< blinkCount:
       setSysLed(true)
       waitBlocking(standardDelay)
       setSysLed(false)

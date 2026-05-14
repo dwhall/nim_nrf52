@@ -4,24 +4,23 @@
 
 import nrf52840/p
 
-const
-  bluePinBit = 1'u32 shl 4 # P1.04/LED2/RAK19007 Blue
-  greenPinBit = 1'u32 shl 3 # P1.03/LED1/RAK19007 Green
+# P1.04/LED2/RAK19007 Blue
+# P1.03/LED1/RAK19007 Green
 
-proc initSysLed* =
-  P1.DIRSET = greenPinBit
+proc initSysLed*() =
+  P1.DIRSET.PIN3(1'u32)
 
-proc initUserLed* =
-  P1.DIRSET = bluePinBit
+proc initUserLed*() =
+  P1.DIRSET.PIN3(1'u32)
 
 proc setSysLed*(on: bool) =
   if on:
-    P1.OUTSET = greenPinBit
+    P1.OUTSET.PIN3(1'u32)
   else:
-    P1.OUTCLR = greenPinBit
+    P1.OUTCLR.PIN3(1'u32)
 
 proc setUserLed*(on: bool) =
   if on:
-    P1.OUTSET = bluePinBit
+    P1.OUTSET.PIN3(1'u32)
   else:
-    P1.OUTCLR = bluePinBit
+    P1.OUTCLR.PIN3(1'u32)
