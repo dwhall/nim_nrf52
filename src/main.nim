@@ -12,8 +12,8 @@ proc timerCallback() =
   setUserLed(ledState)
 
 proc main() =
-  discard debugRTTwriteStr(0, "Hello from Nim!\n")
-  debugRTTprintf(0, "Counter: %d\n", 42)
+  debugPrint("Hello from Nim!\n")
+  debugPrint("Timer interval: " & $timerInterval)
   initUserLed()
   configureTimer(timerInterval, timerCallback)
   while true:
