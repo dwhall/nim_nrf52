@@ -4,8 +4,8 @@ import armv7m/core
 import bsp, timer, reset, hard_fault, debug_rtt
 
 const
-  timerInterval = 3277'u32 # ~100 ms
-  ledToBlink = Led2Blue
+  timerInterval = 32768'u32 # ~1s
+  ledToBlink = Led1Green
 
 proc timerCallback() =
   # Toggle the BSP's blue LED

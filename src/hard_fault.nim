@@ -9,7 +9,7 @@ import bsp
 const
   standardDelay = 1000
   longDelay = 5000
-  faultLed = Led1Green
+  faultLed = Led2Blue
 
 func waitBlocking(ticks: int) =
   var outerTicks = ticks
