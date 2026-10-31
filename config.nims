@@ -1,3 +1,5 @@
+#!fmt: off
+
 mode = ScriptMode.Verbose
 
 const
@@ -91,14 +93,13 @@ task build, "Build the project (debug by default)":
 
   # Post-build steps
   let buildPath = binDir / target
-  exec "arm-none-eabi-objcopy -O binary " & buildPath & ".elf " & buildPath &
-       ".bin"
+  exec "arm-none-eabi-objcopy -O binary " & buildPath & ".elf " & buildPath & ".bin"
 
   let objdumpOutput = gorgeEx("arm-none-eabi-objdump -D " & buildPath & ".elf")
   writeFile(buildPath & "-objdump.txt", objdumpOutput.output)
 
-  exec "python3 deps/uf2/utils/uf2conv.py --base 0x26000 --family NRF52840 " &
-       buildPath & ".bin --output " & buildPath & ".uf2 --convert"
+  exec "python3 deps/uf2/utils/uf2conv.py --base 0x26000 --family NRF52840 " & buildPath &
+    ".bin --output " & buildPath & ".uf2 --convert"
 
 task clean, "Clean build artifacts":
   rmDir(binDir)
@@ -108,3 +109,4 @@ task load, "Load UF2 file to the device":
   if not fileExists(uf2Path):
     quit("UF2 file not found. Please build the project first.")
   exec "python3 deps/uf2/utils/uf2conv.py --deploy " & uf2Path
+

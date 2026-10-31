@@ -3,18 +3,20 @@
 import armv7m/core
 import bsp, timer, reset, hard_fault, debug_rtt
 
-const timerInterval = 3277'u32 # ~100 ms
+const
+  timerInterval = 3277'u32 # ~100 ms
+  ledToBlink = Led2Blue
 
 proc timerCallback() =
-  # Toggle the BSP's user LED
+  # Toggle the BSP's blue LED
   var ledState {.global.} = false
   ledState = not ledState
-  setUserLed(ledState)
+  setLed(ledToBlink, ledState)
 
 proc main() =
   debugPrint("Hello from Nim!\n")
   debugPrint("Timer interval: " & $timerInterval)
-  initUserLed()
+  initLed(ledToBlink)
   configureTimer(timerInterval, timerCallback)
   while true:
     WFI()

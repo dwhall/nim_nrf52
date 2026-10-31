@@ -9,6 +9,7 @@ import bsp
 const
   standardDelay = 1000
   longDelay = 5000
+  faultLed = Led1Green
 
 func waitBlocking(ticks: int) =
   var outerTicks = ticks
@@ -25,11 +26,11 @@ proc fault_Handler() {.exportc, noconv, noreturn.} =
   # which prevents most interrupts from interrupting this handler;
   # so we use blocking waits to flash the LED
   let blinkCount = IPSR.read().EXN_NUMBER.uint32
-  initSysLed()
+  initLed(faultLed)
   while true:
     for i in 0'u32 ..< blinkCount:
-      setSysLed(true)
+      setLed(faultLed, true)
       waitBlocking(standardDelay)
-      setSysLed(false)
+      setLed(faultLed, false)
       waitBlocking(standardDelay)
     waitBlocking(longDelay)
