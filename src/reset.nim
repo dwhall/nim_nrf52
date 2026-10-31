@@ -8,13 +8,21 @@ import debug_rtt
 
 proc NimMain() {.importc: "NimMain".}
 
+type
+  ExnHandler = proc() {.noconv.}
+  IrqHandler = proc() {.noconv.}
+  VectorTable = object
+    stackPointer {.align(128).}: uint32
+    exnHandler: array[1 .. 15, ExnHandler]
+    irqHandler: array[48, IrqHandler]
+
 let
   c_etext {.importc: "etext".}: ptr UncheckedArray[cuint]
   c_data_start {.importc: "data_start".}: ptr UncheckedArray[cuint]
   c_data_end {.importc: "data_end".}: ptr cuint
   c_bss_start {.importc: "bss_start".}: ptr UncheckedArray[cuint]
   c_bss_end {.importc: "bss_end".}: ptr cuint
-  c_vectorTableAddress {.importc: "vectorTableAddress".}: cint
+  c_vectorTable {.importc: "c_vectorTable", used.}: VectorTable
 
 proc copyDataSection() =
   var i = 0
@@ -29,7 +37,7 @@ proc zeroBssSection() =
     inc i
 
 proc Reset_Handler() {.exportc, noconv.} =
-  SCB.VTOR.TBLOFF(c_vectorTableAddress.uint32)
+  SCB.VTOR.write(cast[uint32](addr c_vectorTable))
   copyDataSection()
   zeroBssSection()
   rttInit()
